@@ -76,6 +76,7 @@ const Register = () => {
         <SelectedList
           index={FormationIndex}
           selectedIndex={selectedIndex}
+          setSelectedIndex={setSelectedIndex}
         />
       </Box>
       <div className={classes.buttons}>

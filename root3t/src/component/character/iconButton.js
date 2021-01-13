@@ -13,6 +13,10 @@ const useStyles = makeStyles({
     padding: "0px",
     margin: "4px"
   },
+  selected: {
+    padding: "0px",
+    margin: "0px"
+  },
   icon: {
     opacity: 0.85
   },
@@ -30,6 +34,14 @@ const useStyles = makeStyles({
     opacity: 0.5,
     color: "white",
     backgroundColor: "black"
+  },
+  cancel: {
+    position: "absolute",
+    top: "-5px",
+    left: "55px",
+    zIndex: 1,
+    opacity: 1,
+    color: "gray"
   }
 });
 
@@ -98,9 +110,13 @@ IconButtonList.propTypes = {
   setSelectedIndex: PropTypes.func.isRequired
 };
 
-export const SelectedList = ({ index, selectedIndex }) => {
+export const SelectedList = ({ index, selectedIndex, setSelectedIndex }) => {
   const classes = useStyles();
   const [sortIndex, setSortIndex] = useState(null);
+
+  const onCancelIcon = (name) => {
+    setSelectedIndex(items => items.filter((item) => item !== name));
+  };
 
   useEffect(() => {
     setSortIndex(
@@ -113,12 +129,17 @@ export const SelectedList = ({ index, selectedIndex }) => {
     <>
       {sortIndex && sortIndex.map((name, index) => {
         return (
-          <Avatar
+          <Button
             key={index}
-            variant="rounded"
-            src={`${process.env.PUBLIC_URL}/icon/${name}.png`}
-            classes={{ root: classes.selectedIcon }}
-          />
+            classes={{ root: classes.root, text: classes.selected }}
+            onClick={() => onCancelIcon(name)}
+          >
+            <Avatar
+              variant="rounded"
+              src={`${process.env.PUBLIC_URL}/icon/${name}.png`}
+              classes={{ root: classes.selectedIcon }}
+            />
+          </Button>
         );
       })}
     </>
@@ -127,5 +148,6 @@ export const SelectedList = ({ index, selectedIndex }) => {
 
 SelectedList.propTypes = {
   index: PropTypes.array.isRequired,
-  selectedIndex: PropTypes.array.isRequired
+  selectedIndex: PropTypes.array.isRequired,
+  setSelectedIndex: PropTypes.func.isRequired
 };
