@@ -1,4 +1,4 @@
-export const NormalIndex = [
+export const characterList : string[] = [
   "アオイ",
   "アオイ(編入生)",
   "アカリ",
@@ -140,7 +140,7 @@ export const NormalIndex = [
 ];
 
 
-export const FormationIndex = [
+export const FormationCharacterList : string[] = [
   "リマ",
   "ミヤコ",
   "クウカ",

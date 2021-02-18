@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Box, Button, Card, FormControlLabel, Switch } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Button, Card, FormControlLabel, Switch } from "@material-ui/core";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
-import { NormalIndex, FormationIndex } from "../../constants";
+import { characterList, FormationCharacterList } from "../../constants";
 
 import { IconButtonList, SelectedList } from "../character/iconButton";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
     backgroundColor: "#393c40",
     maxWidth: "1000px",
@@ -29,14 +29,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // 登録ページ
-const Register = () => {
+function Register() {
   const classes = useStyles();
-
-  const [isFormation, setIsFormation] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState([]);
+  const [isFormation, setIsFormation] = useState<boolean>(false);
+  const [selectedList, setSelectedList] = useState<string[]>([]);
 
   const onReset = () => {
-    setSelectedIndex([]);
+    setSelectedList([]);
   };
 
   const handleChange = () => {
@@ -61,24 +60,22 @@ const Register = () => {
         }}
       >
         <IconButtonList
-          index={isFormation ? FormationIndex : NormalIndex}
-          selectedIndex={selectedIndex}
-          setSelectedIndex={setSelectedIndex}
+          characterList={isFormation ? FormationCharacterList : characterList}
+          selectedList={selectedList}
+          setSelectedList={setSelectedList}
         />
       </Card>
-      <Box
-        display="flex"
-        flexDirection="row-reverse"
+      <Card
         classes={{
           root: classes.selected
         }}
       >
         <SelectedList
-          index={FormationIndex}
-          selectedIndex={selectedIndex}
-          setSelectedIndex={setSelectedIndex}
+          characterList={FormationCharacterList}
+          selectedList={selectedList}
+          setSelectedList={setSelectedList}
         />
-      </Box>
+      </Card>
       <div className={classes.buttons}>
         <Button variant="contained" onClick={() => onReset()}>Reset</Button>
         <Button variant="contained" color="primary">Register</Button>

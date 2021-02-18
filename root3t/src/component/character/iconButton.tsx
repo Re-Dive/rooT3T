@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Avatar, Button, Snackbar } from "@material-ui/core";
+import React, { useState, useEffect, SyntheticEvent } from "react";
+import { Avatar, Button, Snackbar, SnackbarCloseReason } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import MuiAlert from "@material-ui/lab/Alert";
-import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
   root: {
@@ -45,28 +44,36 @@ const useStyles = makeStyles({
   }
 });
 
-function Alert(props) {
+function Alert(props: any) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-// 登録画面一覧
-export const IconButtonList = ({ index, selectedIndex, setSelectedIndex }) => {
-  const classes = useStyles();
-  const [open, setOpen] = useState(false);
+type Props = {
+  characterList: string[];
+  selectedList: string[];
+  setSelectedList: (list: string[]) => void;
+};
 
-  const onClickIcon = (name) => {
-    if (selectedIndex && selectedIndex.includes(name)) {
-      setSelectedIndex(items => items.filter((item) => item !== name));
+// 登録画面一覧
+export function IconButtonList({ characterList, selectedList, setSelectedList } : Props) {
+  const classes = useStyles();
+  const [open, setOpen] = useState<boolean>(false);
+
+  const onClickIcon = (name: string) => {
+    if (selectedList && selectedList.includes(name)) {
+      const filteredList: string[] = selectedList.filter((item) => item !== name);
+      setSelectedList(filteredList);
     } else {
-      if (selectedIndex.length < 5) {
-        setSelectedIndex(items => [...items, name]);
+      if (selectedList.length < 5) {
+        const newList: string[] = [...selectedList, name];
+        setSelectedList(newList);
       } else {
         setOpen(true);
       }
     }
   };
 
-  const handleClose = (event, reason) => {
+  const handleClose = (event: SyntheticEvent<any, Event>, reason: SnackbarCloseReason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -75,14 +82,14 @@ export const IconButtonList = ({ index, selectedIndex, setSelectedIndex }) => {
 
   return (
     <>
-      {index.map((name, index) => {
+      {characterList.map((name: string, index: number) => {
         return (
           <Button
             key={index}
             classes={{ root: classes.root, text: classes.text }}
             onClick={() => onClickIcon(name)}
           >
-            {selectedIndex && selectedIndex.includes(name) &&
+            {selectedList && selectedList.includes(name) &&
               <CheckCircleIcon
                 classes={{ root: classes.checked }}
               />
@@ -104,26 +111,20 @@ export const IconButtonList = ({ index, selectedIndex, setSelectedIndex }) => {
   );
 };
 
-IconButtonList.propTypes = {
-  index: PropTypes.array.isRequired,
-  selectedIndex: PropTypes.array.isRequired,
-  setSelectedIndex: PropTypes.func.isRequired
-};
-
-export const SelectedList = ({ index, selectedIndex, setSelectedIndex }) => {
+export function SelectedList({ characterList, selectedList, setSelectedList } : Props) {
   const classes = useStyles();
-  const [sortIndex, setSortIndex] = useState(null);
+  const [sortIndex, setSortIndex] = useState<string[]>([]);
 
-  const onCancelIcon = (name) => {
-    setSelectedIndex(items => items.filter((item) => item !== name));
+  const onCancelIcon = (name: string) => {
+    const filteredList: string[] = selectedList.filter((item) => item !== name);
+    setSelectedList(filteredList);
   };
 
   useEffect(() => {
-    setSortIndex(
-      [].concat(selectedIndex)
-        .sort((a, b) => index.indexOf(a) > index.indexOf(b) ? 1 : -1)
-    );
-  }, [selectedIndex]);
+    const sortedList: string[] = selectedList
+    .sort((a, b) => characterList.indexOf(a) > characterList.indexOf(b) ? 1 : -1)
+    setSortIndex(sortedList);
+  }, [characterList, selectedList]);
 
   return (
     <>
@@ -144,10 +145,4 @@ export const SelectedList = ({ index, selectedIndex, setSelectedIndex }) => {
       })}
     </>
   );
-};
-
-SelectedList.propTypes = {
-  index: PropTypes.array.isRequired,
-  selectedIndex: PropTypes.array.isRequired,
-  setSelectedIndex: PropTypes.func.isRequired
 };
