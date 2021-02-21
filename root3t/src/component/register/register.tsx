@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     height: "80px",
     padding: "5px 5px",
     margin: "20px 0px 10px 0px",
-    borderRadius: "10px"
+    borderRadius: "10px",
+    textAlign: "right"
   },
   buttons: {
     "& > *": {

@@ -122,7 +122,7 @@ export function SelectedList({ characterList, selectedList, setSelectedList } : 
 
   useEffect(() => {
     const sortedList: string[] = selectedList
-    .sort((a, b) => characterList.indexOf(a) > characterList.indexOf(b) ? 1 : -1)
+    .sort((a, b) => characterList.indexOf(a) > characterList.indexOf(b) ? -1 : 1)
     setSortIndex(sortedList);
   }, [characterList, selectedList]);
 
