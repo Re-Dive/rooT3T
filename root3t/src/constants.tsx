@@ -1,4 +1,4 @@
-export const characterList : string[] = [
+export const characterList: string[] = [
   "アオイ",
   "アオイ(編入生)",
   "アカリ",
@@ -136,11 +136,10 @@ export const characterList : string[] = [
   "レイ",
   "レイ(ニューイヤー)",
   "レイ(ハロウィン)",
-  "レム"
+  "レム",
 ];
 
-
-export const FormationCharacterList : string[] = [
+export const FormationCharacterList: string[] = [
   "リマ",
   "ミヤコ",
   "クウカ",
@@ -278,5 +277,5 @@ export const FormationCharacterList : string[] = [
   "ユニ",
   "キョウカ",
   "ミサキ(ハロウィン)",
-  "キョウカ(ハロウィン)"
+  "キョウカ(ハロウィン)",
 ];
