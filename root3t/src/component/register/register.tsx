@@ -109,6 +109,7 @@ function Register() {
         {confirmedList.length > 0
           && confirmedList.map((item, index) => (
             <Card
+              key={index}
               classes={{
                 root: classes.selected,
               }}
