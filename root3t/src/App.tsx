@@ -1,9 +1,9 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import "./App.css";
 
 import Register from "./component/register/register";
 
-function App() {
+function App(): ReactElement {
   return (
     <div className="App">
       <header className="App-header">

@@ -1,6 +1,14 @@
-import React, { useState, useEffect, SyntheticEvent } from "react";
+import React, {
+  useState,
+  useEffect,
+  SyntheticEvent,
+  ReactElement,
+} from "react";
 import {
-  Avatar, Button, Snackbar, SnackbarCloseReason, 
+  Avatar,
+  Button,
+  Snackbar,
+  SnackbarCloseReason,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
@@ -61,27 +69,27 @@ export function IconButtonList({
   characterList,
   selectedList,
   setSelectedList,
-}: Props) {
+}: Props): ReactElement {
   const classes = useStyles();
   const [open, setOpen] = useState<boolean>(false);
 
   const onClickIcon = (name: string) => {
     if (selectedList && selectedList.includes(name)) {
       const filteredList: string[] = selectedList.filter(
-        (item) => item !== name,
+        (item) => item !== name
       );
       setSelectedList(filteredList);
     } else if (selectedList.length < 5) {
       const newList: string[] = [...selectedList, name];
-        setSelectedList(newList);
-      } else {
+      setSelectedList(newList);
+    } else {
       setOpen(true);
     }
   };
 
   const handleClose = (
     event: SyntheticEvent<any, Event>,
-    reason: SnackbarCloseReason,
+    reason: SnackbarCloseReason
   ) => {
     if (reason === "clickaway") {
       return;
@@ -93,15 +101,13 @@ export function IconButtonList({
     <>
       {characterList.map((name: string, index: number) => (
         <Button
-            key={index}
-            classes={{ root: classes.root, text: classes.text }}
-            onClick={() => onClickIcon(name)}
-          >
-            {selectedList && selectedList.includes(name)
-              && <CheckCircleIcon
-                classes={{ root: classes.checked }}
-              />
-            }
+          key={index}
+          classes={{ root: classes.root, text: classes.text }}
+          onClick={() => onClickIcon(name)}
+        >
+          {selectedList && selectedList.includes(name) && (
+            <CheckCircleIcon classes={{ root: classes.checked }} />
+          )}
           <Avatar
             variant="rounded"
             src={`${process.env.PUBLIC_URL}/icon/${name}.png`}
@@ -127,7 +133,7 @@ export function SelectedList({
   characterList,
   selectedList,
   setSelectedList,
-}: Props) {
+}: Props): ReactElement {
   const classes = useStyles();
   const [sortIndex, setSortIndex] = useState<string[]>([]);
 
@@ -145,20 +151,20 @@ export function SelectedList({
 
   return (
     <>
-      {sortIndex
-        && sortIndex.map((name, index) => (
-            <Button
-              key={index}
-              classes={{ root: classes.root, text: classes.selected }}
-              onClick={() => onCancelIcon(name)}
-            >
-              <Avatar
-                variant="rounded"
-                src={`${process.env.PUBLIC_URL}/icon/${name}.png`}
-                classes={{ root: classes.selectedIcon }}
-              />
-            </Button>
-          ))}
+      {sortIndex &&
+        sortIndex.map((name, index) => (
+          <Button
+            key={index}
+            classes={{ root: classes.root, text: classes.selected }}
+            onClick={() => onCancelIcon(name)}
+          >
+            <Avatar
+              variant="rounded"
+              src={`${process.env.PUBLIC_URL}/icon/${name}.png`}
+              classes={{ root: classes.selectedIcon }}
+            />
+          </Button>
+        ))}
     </>
   );
 }

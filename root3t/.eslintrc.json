@@ -3,7 +3,11 @@
         "browser": true
     },
     "extends": [
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
+        "prettier"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -13,8 +17,12 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": [],
+    "plugins": [
+        "@typescript-eslint",
+        "prettier"
+    ],
     "rules": {
-        "quotes": [1, "double"]
+        "quotes": [1, "double"],
+        "prettier/prettier": "error" 
     }
 }
