@@ -71,61 +71,41 @@ function Register(): ReactElement {
         }
         label="隊列順"
       />
-      <Grid container spacing={3}>
-        <Grid item>
-          <Card
-            classes={{
-              root: classes.root,
-            }}
-          >
-            <IconButtonList
-              characterList={
-                isFormation ? FormationCharacterList : characterList
-              }
-              selectedList={selectedList}
-              setSelectedList={setSelectedList}
-            />
-          </Card>
-          <Card
-            classes={{
-              root: classes.selected,
-            }}
-          >
-            <SelectedList
-              characterList={FormationCharacterList}
-              selectedList={selectedList}
-              setSelectedList={setSelectedList}
-            />
-          </Card>
-          <div className={classes.buttons}>
-            <Button variant="contained" onClick={() => onReset()}>
-              Reset
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => onRegister()}
-            >
-              Register
-            </Button>
-          </div>
-        </Grid>
-        {confirmedList.length > 0 &&
-          confirmedList.map((item, index) => (
-            <Card
-              key={index}
-              classes={{
-                root: classes.selected,
-              }}
-            >
-              <SelectedList
-                characterList={FormationCharacterList}
-                selectedList={item}
-                setSelectedList={setSelectedList}
-              />
-            </Card>
-          ))}
-      </Grid>
+
+      <Card
+        classes={{
+          root: classes.root,
+        }}
+      >
+        <IconButtonList
+          characterList={isFormation ? FormationCharacterList : characterList}
+          selectedList={selectedList}
+          setSelectedList={setSelectedList}
+        />
+      </Card>
+      <Card
+        classes={{
+          root: classes.selected,
+        }}
+      >
+        <SelectedList
+          characterList={FormationCharacterList}
+          selectedList={selectedList}
+          setSelectedList={setSelectedList}
+        />
+      </Card>
+      <div className={classes.buttons}>
+        <Button variant="contained" onClick={() => onReset()}>
+          Reset
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => onRegister()}
+        >
+          Register
+        </Button>
+      </div>
     </>
   );
 }
