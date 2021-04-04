@@ -17,6 +17,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 
+import { ConfirmedList } from "../character/iconButton";
+import { FormationCharacterList } from "../../constants";
+
 const drawerWidth = 300;
 
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +79,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function FormationSideBar(): ReactElement {
+type Props = {
+  confirmedList: string[][];
+  setConfirmedList: (list: string[][]) => void;
+};
+
+function FormationSideBar({
+  confirmedList,
+  setConfirmedList,
+}: Props): ReactElement {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -132,6 +143,11 @@ function FormationSideBar(): ReactElement {
         </div>
         <Divider />
         <List>
+          <ConfirmedList
+            characterList={FormationCharacterList}
+            confirmedList={confirmedList}
+            setConfirmedList={setConfirmedList}
+          />
           {["ここに", "作った", "編成を", "並べる"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>

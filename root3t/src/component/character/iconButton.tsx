@@ -168,3 +168,53 @@ export function SelectedList({
     </>
   );
 }
+
+type ConfirmedProps = {
+  characterList: string[];
+  confirmedList: string[][];
+  setConfirmedList: (list: string[][]) => void;
+};
+
+export function ConfirmedList({
+  characterList,
+  confirmedList,
+  setConfirmedList,
+}: ConfirmedProps): ReactElement {
+  const classes = useStyles();
+  const [sortIndex, setSortIndex] = useState<string[][]>([]);
+
+  /*
+  const onCancelIcon = (name: string) => {
+    const filteredList: string[] = selectedList.filter((item) => item !== name);
+    setSelectedList(filteredList);
+  };
+  */
+
+  useEffect(() => {
+    const sortedList: string[][] = confirmedList.map((item) =>
+      item.sort((a, b) =>
+        characterList.indexOf(a) > characterList.indexOf(b) ? -1 : 1
+      )
+    );
+    setSortIndex(sortedList);
+  }, [characterList, confirmedList]);
+
+  return (
+    <>
+      {sortIndex[0] &&
+        sortIndex[0].map((name, index) => (
+          <Button
+            key={index}
+            classes={{ root: classes.root, text: classes.selected }}
+            //onClick={() => onCancelIcon(name)}
+          >
+            <Avatar
+              variant="rounded"
+              src={`${process.env.PUBLIC_URL}/icon/${name}.png`}
+              classes={{ root: classes.selectedIcon }}
+            />
+          </Button>
+        ))}
+    </>
+  );
+}

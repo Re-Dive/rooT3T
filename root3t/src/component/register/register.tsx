@@ -1,11 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import {
-  Button,
-  Card,
-  FormControlLabel,
-  Grid,
-  Switch,
-} from "@material-ui/core";
+import { Button, Card, FormControlLabel, Switch } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import { characterList, FormationCharacterList } from "../../constants";
@@ -37,13 +31,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+type Props = {
+  confirmedList: string[][];
+  setConfirmedList: (list: string[][]) => void;
+};
+
 // 登録ページ
-function Register(): ReactElement {
+function Register({ confirmedList, setConfirmedList }: Props): ReactElement {
   const classes = useStyles();
   const [isFormation, setIsFormation] = useState<boolean>(false);
   const [selectedList, setSelectedList] = useState<string[]>([]);
-  // confirmed List 5体のキャラらクターの並びを保存する
-  const [confirmedList, setConfirmedList] = useState<string[][]>([]);
 
   const onRegister = () => {
     const prev = confirmedList.slice();
